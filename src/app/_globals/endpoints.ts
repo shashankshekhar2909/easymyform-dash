@@ -6,7 +6,8 @@ const ENDPOINTS: any = {
     userInfo:'/user/user-info',
   },
   jobs:{
-    postJobFeed:'/job/job-feeds ',
+    jobFeeds:'/job/job-feeds ',
+    jobFeedsUser:'/job/job-feeds-user'
 
   },
   cv:{

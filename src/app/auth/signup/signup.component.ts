@@ -39,6 +39,7 @@ export class SignupComponent {
     }
   }
   submitting = false;
+  formData = new FormData();
 
   login(){
     this.submitting = true;

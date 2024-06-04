@@ -10,10 +10,12 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LoginComponent } from './auth/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material';
+import { HttpConfigInterceptor } from './_interceptors/http-config.interceptor';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,18 @@ import { MaterialModule } from '../material';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'csrftoken',
+      headerName: 'x-csrf',
+    }),
+
   ],
   providers: [
-    provideClientHydration(),
-    provideAnimationsAsync()
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

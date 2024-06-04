@@ -21,7 +21,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(
-    request: HttpRequest<any>,
+    request: HttpRequest<any>|any,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // Set Credentials (Cookie)
@@ -29,18 +29,17 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       withCredentials: true,
     });
     if (this.tokenExtractor.getToken()) {
-      let headers: HttpHeaders;
+      let headers: HttpHeaders|any;
       if (request.headers.has('Content-Range')) {
         headers = new HttpHeaders({
           'Content-Range': request.headers.get('Content-Range'),
         });
       } else {
-        if (!request.url.startsWith('https://storage.googleapis.com/')) {
+          let token:any = this.tokenExtractor.getToken();
           headers = new HttpHeaders({
             'X-Requested-With': 'XMLHttpRequest',
-            'x-CSRFToken': this.tokenExtractor.getToken(),
+            'x-CSRFToken': token,
           });
-        }
       }
       request = request.clone({
         headers,
@@ -48,7 +47,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
 
     return next.handle(request).pipe(
-      map((response: HttpResponse<any>) => response),
+      map((response: HttpResponse<any>|any) => response),
       catchError((error: HttpResponse<HttpErrorResponse>) => {
         if (error.status === 403) {
           this.router.navigate(['/']);

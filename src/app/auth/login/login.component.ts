@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -23,6 +25,9 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
+  ngOnInit(): void {
+      this.checkLogin();
+  }
   get email() {
     return this.loginForm.get('email');
   }
@@ -46,10 +51,12 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
       // Handle login logic here
+      console.log(this.loginForm);
       this.userService.signIn(this.loginForm.value).subscribe({
         next: (resp:any) => {
           console.log(resp);
           this.submitting = false;
+          this.router.navigate(['/admin'])
           this.loginForm.reset();
         },
         error: (HttpResponse: HttpErrorResponse) => {
@@ -58,5 +65,17 @@ export class LoginComponent {
         }
       });
     }
+  }
+
+  checkLogin(){
+    this.userService.userProfile().subscribe({
+      next: (resp:any) => {
+        console.log(resp);
+      },
+      error: (HttpResponse: HttpErrorResponse) => {
+        console.log(HttpResponse);
+
+      }
+    });
   }
 }

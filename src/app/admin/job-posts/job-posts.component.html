@@ -1,0 +1,104 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Job Posts</h5>
+          <!-- Table with stripped rows -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  <b>Designation</b>
+                </th>
+                <th>Organization</th>
+                <th>Experience</th>
+                <th>Job Type</th>
+                <th data-type="date" data-format="YYYY/DD/MM">Posted on</th>
+                <th>Last Date to Apply</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of jobPostList">
+                <td>
+                  {{item.designation}}
+                </td>
+                <td>
+                  {{item.company}}
+                </td>
+                <td>
+                  {{item.experience}}
+                </td>
+                <td>
+                  {{item.job_type}}
+                </td>
+                <td>{{item.date_of_posting}}</td>
+                <td>
+                  {{item.last_date_to_apply}}
+                </td>
+                <td>
+                  <ng-container *ngIf="item.active">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                  </ng-container>
+                </td>
+                <td>
+                  <div>
+                    <ng-container *ngIf="item.active">
+                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+                        <i class="fa fa-share" aria-hidden="true"></i>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngIf="item.active">
+                      <button type="button" class="btn btn-warning">
+                        <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                      </button>
+                    </ng-container>
+                    <button type="button" class="btn btn-danger">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Publish Job Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" >Publish</button>
+      </div>
+    </div>
+  </div>
+</div><!-- End Vertically centered Modal-->
