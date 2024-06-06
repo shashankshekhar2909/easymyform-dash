@@ -34,6 +34,20 @@ export class JobService {
       );
   }
 
+  postJob = (formData?:any) => {
+    const endPoint = env.url + this.globals.urlJoin('jobs', 'jobFeeds');
+    return this.http
+      .post(endPoint,{
+      })
+      .pipe(
+        map((response: any) => {
+          console.log(response);
+          return response;
+        }),
+        catchError((error) => throwError(error))
+      );
+  }
+
   getJobFeeds = (filters?:any) => {
     const endPoint = env.url + this.globals.urlJoin('jobs', 'jobFeedsUser');
     return this.http

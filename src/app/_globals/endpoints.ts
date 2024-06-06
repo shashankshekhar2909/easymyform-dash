@@ -7,8 +7,7 @@ const ENDPOINTS: any = {
   },
   jobs:{
     jobFeeds:'/job/job-feeds ',
-    jobFeedsUser:'/job/job-feeds-user'
-
+    jobFeedsUser:'/job/job-feeds-user',
   },
   cv:{
     postCV:'/cv/cv-form',

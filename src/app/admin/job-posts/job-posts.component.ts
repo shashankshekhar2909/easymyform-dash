@@ -13,6 +13,9 @@ export class JobPostsComponent  implements OnInit{
     private jobService: JobService
   ){}
   jobPostList:any = [];
+  formData = {
+
+  }
   ngOnInit(): void {
       this.getJobs();
   }
@@ -28,6 +31,21 @@ export class JobPostsComponent  implements OnInit{
 
       }
     });
+  }
+
+  postJob = ()=> {
+    const formData:any = null;
+    console.log(this.formData);
+    // this.jobService.postJob(formData).subscribe({
+    //   next: (resp:any) => {
+    //     this.jobPostList = resp.results;
+    //     console.log(resp);
+    //   },
+    //   error: (HttpResponse: HttpErrorResponse) => {
+    //     console.log(HttpResponse);
+
+    //   }
+    // });
   }
 
   publish(id:any){
